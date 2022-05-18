@@ -1,0 +1,114 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block banner_slider %}
+<!--Banner Slider-->
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" xmlns="http://www.w3.org/1999/html">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'app/images/banner/b5.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+  {% for i in slideimage %}
+    <div class="carousel-item">
+      <img src="{{i.slider_image.url}}" class="d-block w-100" alt="...">
+    </div>
+  {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+<!-- End Banner Slider -->
+{% endblock banner_slider %}
+
+{% block livesale %}
+<!-- Live Sale Section -->
+<div class="container">
+ {% for offer in offer_banner %}
+  <div class="row bg-danger text-center p-5 text-white border-bottom shadow">
+    <h1>{{offer.title}}</h1>
+    <span>{{offer.offer}}</span>
+    <small class="fw-lighter">{{offer.terms_and_cond}}</small>
+  </div>
+ {% endfor %}
+</div> 
+<!-- End Live Sale Section -->
+{% endblock livesale %}
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<div class="m-3">
+ <h2>Shopify Bottomwears</h2>
+ <!-- Slider 1 -->
+ <div class="owl-carousel" id="slider1">
+ {% for b in bottomwears %}
+  <a href="{% url 'product-detail' b.id %}" class="btn"><div class="item"><img src="{{b.product_image.url}}" alt="loading" height="200px"><span class="fw-bold">{{b.title}}</span> <h1><span class="fs-5">Rs.{{b.discounted_price}} </span> </h1> <h4> <small class="fw-light text-decoration-line-through">Rs.{{b.selling_price}}</small></h4></div></a>
+ {% endfor %}
+ </div>
+</div>
+<!-- End 1st Product Slider -->
+
+<!-- Payment Info Section -->
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+   <div class="card mb-3">
+     <div class="card-body">
+     <img src="{% static 'app/images/payavail/cc.jpg' %}" alt="" srcset="" class="img-fluid">
+     </div>
+   </div>
+  </div>
+  <div class="col-sm-3">
+   <div class="card mb-3">
+     <div class="card-body">
+      <img src="{% static 'app/images/payavail/upi.jpg' %}" alt="" srcset="" class="img-fluid">
+     </div>
+   </div>
+  </div>
+  <div class="col-sm-3">
+   <div class="card mb-3">
+     <div class="card-body">
+      <img src="{% static 'app/images/payavail/nb.jpg' %}" alt="" srcset="" class="img-fluid">
+     </div>
+   </div>
+  </div>
+  <div class="col-sm-3">
+   <div class="card mb-3">
+     <div class="card-body">
+      <img src="{% static 'app/images/payavail/bj.jpg' %}" alt="" srcset="" class="img-fluid">
+     </div>
+   </div>
+  </div>
+ </div>
+</div>
+<!-- End Payment Info Section -->
+
+<!-- 2nd Product Slider -->
+<div class="mx-3">
+ <h2>Shopify Top Wears</h2>
+ <!-- Slider 2 -->
+ <div class="owl-carousel" id="slider2">
+{% for t in topwears %}
+  <a href="{% url 'product-detail' t.id %}" class="btn"><div class="item"><img src="{{t.product_image.url}}" alt="loading" height="200px"><span class="fw-bold">{{t.title}}</span> <h1><span class="fs-5">Rs.{{t.discounted_price}} </span> </h1> <h4> <small class="fw-light text-decoration-line-through">Rs.{{t.selling_price}}</small></h4></div></a>
+ {% endfor %} </div>
+</div>
+<!-- End 2nd Product Slider -->
+<!-- 3rd Product Slider -->
+<div class="mx-3">
+ <h2>Shopify Mobiles</h2>
+ <!-- Slider 3 -->
+ <div class="owl-carousel" id="slider3">
+ {% for b in mobiles %}
+  <a href="{% url 'product-detail' b.id %}" class="btn"><div class="item"><img src="{{b.product_image.url}}" alt="loading" height="200px"><span class="fw-bold">{{b.title}}</span> <h1><span class="fs-5">Rs.{{b.discounted_price}} </span></h1><h4><small class="fw-light text-decoration-line-through">Rs.{{b.selling_price}}</small></h4></div></a>
+ {% endfor %}
+ </div>
+</div>
+<!-- End 3nd Product Slider -->
+{% endblock main-content %}
+

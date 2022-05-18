@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Product Detail{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-6 text-center align-self-center">
+   <img src="{{product.product_image.url}}" width="400" height="200" alt="" class="img-fluid img-thumbnail">
+  </div>
+  <div class="col-sm-5 offset-sm-1">
+   <h2>Product Title: {{product.title}}</h2>
+   <hr>
+   <p>{{product.description}}</p> <br>
+   <h4>Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}
+   </small></h4> <br>
+  {% if request.user.is_authenticated %}
+   {% if item_already_in_cart %}
+    <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
+   {% else %}
+    <form action ="{% url 'add-to-cart' %}" class='d-inline'>
+     <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+     <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+    </form>
+   {% endif %}
+  {% endif %}
+   {% if not request.user.is_authenticated %}
+     <form action ="{% url 'add-to-cart' %}" class='d-inline'>
+     <input type="hidden" name="prod_id" value={{product.id}} id="prod_id1">
+     <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+    </form>
+   {% endif %}
+
+   {% if  request.user.is_authenticated %}
+     <form action ="{% url 'checkout1' %}" class='d-inline'>
+     <input type="hidden" name="prod_id" value={{product.id}} id="prod_id2">
+     <button type="submit" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now </button>
+    </form>
+   {% endif %}
+
+   {% if not request.user.is_authenticated %}
+     <form action ="{% url 'checkout1' %}" class='d-inline'>
+     <input type="hidden" name="prod_id" value={{product.id}} id="prod_id3">
+     <button type="submit" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</button>
+    </form>
+   {% endif %}
+   <h5 class="mt-5">Available Offers</h5>
+   <ul>
+    <li>{{product.offer1}}</li>
+    <li>{{product.offer2}}</li>
+    <li>{{product.offer3}}</li>
+    <li>{{product.offer4}}</li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+{% endblock main-content %}
